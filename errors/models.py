@@ -17,10 +17,10 @@ class Error(models.Model):
     MOBILE = 'M'
     DESKTOP = 'D'
     LAYER_CHOICES = [
-        (BACKEND, "BACKEND")
-        (FEATURE, "FEATURE")
-        (APPLICATION, "APPLICATION")
-        (DESKTOP, "DESKTOP")
+        (BACKEND, "BACKEND"),
+        (FEATURE, "FEATURE"),
+        (APPLICATION, "APPLICATION"),
+        (DESKTOP, "DESKTOP"),
     ]
 
     e_type = models.CharField("Tipo de erro", max_length=25, choices=ETYPE_CHOICES)
