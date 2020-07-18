@@ -18,7 +18,7 @@ class Error(models.Model):
     DESKTOP = 'D'
     LAYER_CHOICES = [
         (BACKEND, "BACKEND"),
-        (FEATURE, "FEATURE"),
+        (FRONTEND, "FRONTEND"),
         (APPLICATION, "APPLICATION"),
         (DESKTOP, "DESKTOP"),
     ]
@@ -28,3 +28,10 @@ class Error(models.Model):
     application = models.CharField("Aplicação", max_length=50)
     layer = models.CharField("Camada", max_length=25, choices=LAYER_CHOICES)
     time = models.DateTimeField("Hora", auto_now_add=True)
+
+    @property
+    def pretty_time(self):
+        return self.time.strftime("%Y-%m-%d %H:%M:%S")
+
+    def __str__(self):
+        return f"{self.application} | {self.get_layer_display()} | {self.get_e_type_display()} | {self.pretty_time}"
