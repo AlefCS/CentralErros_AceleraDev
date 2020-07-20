@@ -12,7 +12,7 @@ info:
   contact:
     email: "alef@alu.ufc.br"
 host: "acs-errorscenter.herokuapp.com"
-basePath: "/"
+basePath: ""
 tags:
 - name: "api"
   description: "Acesso ao Errors Center"
