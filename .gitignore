@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
@@ -8,7 +9,7 @@ __pycache__/
 
 # Django stuff:
 local_settings.py
-db.sqlite3
+*.sqlite3
 
 # Sphinx documentation
 docs/_build/
