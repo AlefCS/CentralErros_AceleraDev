@@ -8,5 +8,6 @@ router.register(r"errors", views.ErrorAPIViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("docs", views.show_docs, name="docs"),
     path('get_token', obtain_auth_token),
 ]

@@ -1,0 +1,163 @@
+swagger: "2.0"
+info:
+  description: "Este é o projeto final da aceleração Python Stone da Codenation. O projeto consiste nesta API, que é um sistema centralizador de erros. Através dos _endpoints_ especificados abaixo é possível criar, ler e remover erros do sistema, desde que o usuário esteja autenticado.<br><br> O projeto foi desenvolvido com o _Django REST framework_."
+  version: "1.0.0"
+  title: "Errors Center"
+  contact:
+    email: "alef@alu.ufc.br"
+host: "localhost:8000"
+#host: "acs-errorscenter.herokuapp.com"
+basePath: ""
+tags:
+- name: "api"
+  description: "Acesso ao Errors Center"
+schemes:
+- "http"
+paths:
+  /api/errors/:
+    get:
+      tags:
+      - "api"
+      summary: "Retorna um conjunto de objetos contendo todos os erros existentes no centralizador"
+      description: ""
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Operação bem sucedida"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Error"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      security:
+      - user_token: []
+    post:
+      tags:
+      - "api"
+      summary: "Adiciona um novo objeto Error ao banco de dados"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Objeto ``Error`` a ser adicionado ao banco de dados"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "e_type"
+          - "e_msg"
+          - "application"
+          - "layer"
+          properties:
+            e_type:
+              type: string
+              example: "P"
+            e_msg:
+              type: "string"
+              example: "Mensagem de erro"
+            application:
+              type: "string"
+              example: "Nome da aplicação"
+            layer:
+              type: "string"
+              example: "D"
+      responses:
+        "201":
+          description: "Objeto ``Error`` adicionado ao banco de dados com sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Error"
+        "400":
+          description: "Requisição inválida"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      security:
+      - user_token: []
+  /api/errors/{id}/:
+    parameters:
+    - name: "id"
+      in: "path"
+      description: "ID do objeto ``Error`` a ser retornado"
+      required: true
+      type: "integer"
+    get:
+      tags:
+      - "api"
+      summary: "Encontra um um objeto Error pelo ID"
+      description: "Retorna um único objeto ``Error``"
+      operationId: ""
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Operação bem sucedida"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Error"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      security:
+      - user_token: []
+    delete:
+      tags:
+      - "api"
+      summary: "Remove um objeto Error do centralizador"
+      description: ""
+      operationId: ""
+      produces:
+      - "application/json"
+      responses:
+        "204":
+          description: "objeto removido com sucesso"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+      security:
+      - user_token: []
+components:
+  responses:
+    Unauthorized:
+      description: "Credenciais não fornecidas ou _token_ inválido"
+  securitySchemes:
+    tokenAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+securityDefinitions:
+  user_token:
+    type: "apiKey"
+    name: "Authorization"
+    description: "Um token válido deve ser concatenado ao fim de 'Token ' para que a autenticação funcione.<br>Ex.: 'Token 0abc12456acx'"
+    in: "header"
+definitions:
+  Error:
+    type: "object"
+    required:
+    - "e_type"
+    - "e_msg"
+    - "application"
+    - "layer"
+    properties:
+      id:
+        type: "integer"
+        example: 1
+      e_type:
+        type: string
+        example: "P"
+      e_msg:
+        type: "string"
+        example: "Mensagem de erro"
+      application:
+        type: "string"
+        example: "Nome da aplicação"
+      layer:
+        type: "string"
+        example: "D"

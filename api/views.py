@@ -12,3 +12,7 @@ class ErrorAPIViewSet(mixins.CreateModelMixin,
                       viewsets.GenericViewSet):
     queryset = Error.objects.all()
     serializer_class = ErrorModelSerializer
+
+
+def show_docs(request):
+    return render(request, "swagger.html")
