@@ -1,19 +1,63 @@
 swagger: "2.0"
 info:
-  description: "Este é o projeto final da aceleração Python Stone da Codenation. O projeto consiste nesta API, que é um sistema centralizador de erros. Através dos _endpoints_ especificados abaixo é possível criar, ler e remover erros do sistema, desde que o usuário esteja autenticado.<br><br> O projeto foi desenvolvido com o _Django REST framework_."
+  description: |
+    Este é o projeto final da aceleração Python Stone da Codenation. O projeto é uma API desenvolvida utilizando _Django REST framework_.
+    
+    Esta API é um sistema centralizador de erros. Através dos _endpoints_ especificados abaixo é possível criar, ler e remover erros do sistema, desde que o usuário esteja autenticado.
+    
+    Para testar a _api_ utilize o usuário 'usuarioteste' e senha 'senhateste123' (já adicionados como exemplo nesta documentação) para requisitar o _token_.
+    Caso queira pular a etapa, utilize o _token_ de exemplo '82c4391f916b84411bb4c2036dbb83807718689b'. Lembrando que o _token_ deve ser enviado no _header_ ``Authorization``com valor 'Token <meu_token>'.
   version: "1.0.0"
   title: "Errors Center"
   contact:
     email: "alef@alu.ufc.br"
-host: "localhost:8000"
-#host: "acs-errorscenter.herokuapp.com"
-basePath: ""
+host: "acs-errorscenter.herokuapp.com"
+basePath: "/"
 tags:
 - name: "api"
   description: "Acesso ao Errors Center"
 schemes:
 - "http"
 paths:
+  /api/get_token/:
+    post:
+      tags:
+      - "api"
+      summary: "Requisita (e caso não exista cria) o token do usuário"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Nome de usuário e senha"
+        required: true
+        schema:
+          type: "object"
+          required:
+          - "username"
+          - "password"
+          properties:
+            username:
+              type: "string"
+              example: "usuarioteste"
+            password:
+              type: "string"
+              example: "senhateste123"
+      responses:
+        "200":
+          description: "Token solicitado com sucesso"
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+                example: "82c4391f916b84411bb4c2036dbb83807718689b"
+        "400":
+          description: "Requisição inválida"
   /api/errors/:
     get:
       tags:
@@ -126,16 +170,11 @@ components:
   responses:
     Unauthorized:
       description: "Credenciais não fornecidas ou _token_ inválido"
-  securitySchemes:
-    tokenAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
 securityDefinitions:
   user_token:
     type: "apiKey"
     name: "Authorization"
-    description: "Um token válido deve ser concatenado ao fim de 'Token ' para que a autenticação funcione.<br>Ex.: 'Token 0abc12456acx'"
+    description: "Um _token_ válido deve ser concatenado ao fim de 'Token ' para que a autenticação funcione. Você pode utilizar o exemplo válido abaixo:<br>'Token 82c4391f916b84411bb4c2036dbb83807718689b'"
     in: "header"
 definitions:
   Error:
