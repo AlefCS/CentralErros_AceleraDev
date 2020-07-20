@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .views import redirect_root2docs
 
 urlpatterns = [
+    path('', redirect_root2docs),
     path('admin/', admin.site.urls),
     path('api/', include(("api.urls", "api"), namespace="api"))
 ]
