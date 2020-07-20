@@ -5,8 +5,7 @@ info:
   title: "Errors Center"
   contact:
     email: "alef@alu.ufc.br"
-host: "localhost:8000"
-#host: "acs-errorscenter.herokuapp.com"
+host: "acs-errorscenter.herokuapp.com"
 basePath: ""
 tags:
 - name: "api"
