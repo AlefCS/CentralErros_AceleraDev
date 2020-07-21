@@ -200,3 +200,6 @@ definitions:
       layer:
         type: "string"
         example: "D"
+      time:
+        type: "string"
+        example: "2020-07-20T02:11:46.358555Z"
